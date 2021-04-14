@@ -235,8 +235,8 @@ def generate_question(conn, user_id):
             keyboard.append(row)
             row=[]
         markup.add(types.KeyboardButton('Остановить тест'))
-        choice = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
-        bot.send_message(user_id, q["Question"], reply_markup=choice)
+        #choice = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
+        bot.send_message(user_id, q["Question"], reply_markup=markup)
 
 
 def check_answer(conn, user_id, word_en, word_ru):
