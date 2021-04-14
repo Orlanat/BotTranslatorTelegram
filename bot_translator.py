@@ -15,7 +15,8 @@ class bot_translator:
     def processing(message):
         print(message)
         if 'message' not in message:
-            return
+            if 'callback_query' in message:
+                message = {"message": message['callback_query']["message"]}
 
         user_id = message['message']['chat']['id']
         user_name = "ErrorName"
