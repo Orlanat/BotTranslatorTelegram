@@ -236,13 +236,13 @@ def generate_question(conn, user_id):
             #row=[]
         markup.add(types.KeyboardButton('Остановить тест'))
         choice = types.InlineKeyboardMarkup(
-            inline_keyboard=[
+            [
                 [
                     types.InlineKeyboardButton(text="Отмена", callback_data="Остановить тест")
                 ]
             ]
         )
-
+        bot.send_message(user_id, q["Question"], reply_markup=choice)
         bot.send_message(user_id, q["Question"], reply_markup=markup)
 
 
