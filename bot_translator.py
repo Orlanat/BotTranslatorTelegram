@@ -100,7 +100,8 @@ class bot_translator:
                 #bot.send_message(user_id, f"Тестовый вопрос: {text}", reply_markup=BotKeyboard.start_keyboard())
                 # delete_all_progress_users(conn)
         else:
-            bot.send_message(user_id, f"Привет {user_name}")
+            #bot.send_message(user_id, f"Привет {user_name}")
+            pass
 
 
 
