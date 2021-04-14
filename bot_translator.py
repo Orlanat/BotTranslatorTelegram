@@ -30,8 +30,11 @@ class bot_translator:
         if 'text' not in message['message']:
             bot.send_message(user_id, f"Опять за старое взялся? {user_name}!", reply_markup=BotKeyboard.start_keyboard())
             return
-
         text = message['message']['text']
+
+        if "reply_markup" in message['message']:
+            text = message['message']["reply_markup"][0]["callback_data"]
+
         print(f"text: {text}")
 
         cur = conn.cursor()
