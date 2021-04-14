@@ -230,10 +230,10 @@ def generate_question(conn, user_id):
         row=[]
         for options in q["Answer options"]:
             markup.add(types.KeyboardButton(options))
-            words = q["Answer options"].split(': ')
-            row.append(types.InlineKeyboardButton(text=words[2], callback_data=options))
-            keyboard.append(row)
-            row=[]
+            #words = q["Answer options"].split(': ')
+            #row.append(types.InlineKeyboardButton(text=words[2], callback_data=options))
+            #keyboard.append(row)
+            #row=[]
         markup.add(types.KeyboardButton('Остановить тест'))
         #choice = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
         bot.send_message(user_id, q["Question"], reply_markup=markup)
