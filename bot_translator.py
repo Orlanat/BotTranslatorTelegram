@@ -14,29 +14,31 @@ class bot_translator:
     @staticmethod
     def processing(message):
         print(message)
-        if 'message' not in message:
-            if 'callback_query' in message:
-                message = {"message": message['callback_query']["message"]}
+        if 'callback_query' in message:
+            text = message["callback_query"]["data"]
+            user_id = message["callback_query"]['message']['chat']['id']
+            user_name = "ErrorName"
 
-        user_id = message['message']['chat']['id']
-        user_name = "ErrorName"
-        if 'username' in message['message']['chat']:
-            user_name = message['message']['chat']['username']
+        if 'message' in message:
+            user_id = message['message']['chat']['id']
+            user_name = "ErrorName"
+            if 'username' in message['message']['chat']:
+                user_name = message['message']['chat']['username']
 
-        if 'first_name' in message['message']['chat']:
-            user_name = message['message']['chat']['first_name']
+            if 'first_name' in message['message']['chat']:
+                user_name = message['message']['chat']['first_name']
 
-        print(f"user_name: {user_name}")
+            print(f"user_name: {user_name}")
 
-        if 'text' not in message['message']:
-            bot.send_message(user_id, f"Опять за старое взялся? {user_name}!", reply_markup=BotKeyboard.start_keyboard())
-            return
-        text = message['message']['text']
+            if 'text' not in message['message']:
+                bot.send_message(user_id, f"Опять за старое взялся? {user_name}!", reply_markup=BotKeyboard.start_keyboard())
+                return
+            text = message['message']['text']
 
-        if "reply_markup" in message['message']:
-            text = message['message']["reply_markup"][0]["callback_data"]
+            if "reply_markup" in message['message']:
+                text = message['message']["reply_markup"][0]["callback_data"]
 
-        print(f"text: {text}")
+            print(f"text: {text}")
 
         cur = conn.cursor()
         cur.execute(f"SELECT * FROM users WHERE id = {user_id}")
