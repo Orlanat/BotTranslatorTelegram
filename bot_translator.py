@@ -45,8 +45,8 @@ class bot_translator:
         row = cur.fetchone()
         if row is None:
             add_user(user_id, user_name)
-            bot.send_message(user_id, f"Привет {user_name}",
-                             reply_markup=BotKeyboard.start_keyboard())
+            #bot.send_message(user_id, f"Привет {user_name}",
+            #                 reply_markup=BotKeyboard.start_keyboard())
             print("jasdhjdsahdkjashdkjsahdkjashdkjahsdkjahskjdhashdkjasksdajah")
             conn.commit()
             return
@@ -230,16 +230,13 @@ def generate_question(conn, user_id):
         markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         print(q)
         keyboard = []
-        row = []
-        row.append(q["Question"])
-        keyboard.append(row)
         row=[]
         for options in q["Answer options"]:
             markup.add(types.KeyboardButton(options))
-            #words = q["Answer options"].split(': ')
-            #row.append(types.InlineKeyboardButton(text=words[2], callback_data=options))
-            #keyboard.append(row)
-            #row=[]
+            words = q["Answer options"].split(': ')
+            row.append(types.InlineKeyboardButton(text=words[2], callback_data=options))
+            keyboard.append(row)
+            row=[]
         markup.add(types.KeyboardButton('Остановить тест'))
         choice = types.InlineKeyboardMarkup(
             [
@@ -248,6 +245,7 @@ def generate_question(conn, user_id):
                 ]
             ]
         )
+        choice = types.InlineKeyboardMarkup(keyboard)
         bot.send_message(user_id, q["Question"], reply_markup=choice)
         bot.send_message(user_id, q["Question"], reply_markup=markup)
 
