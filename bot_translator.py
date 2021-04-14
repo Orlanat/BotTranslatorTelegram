@@ -232,7 +232,7 @@ def generate_question(conn, user_id):
         keyboard = []
         row=[]
         for options in q["Answer options"]:
-            markup.add(types.KeyboardButton(options))
+            #markup.add(types.KeyboardButton(options))
             words = options.split(': ')
             row.append(types.InlineKeyboardButton(text=words[2], callback_data=options))
             keyboard.append(row)
